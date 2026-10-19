@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+html { scroll-behavior: smooth; }
+body { @apply bg-sand-50 text-ink antialiased; font-family: 'Inter', system-ui, sans-serif; }
+
+/* Accessible focus rings (WCAG AA) */
+*:focus-visible { outline: 3px solid #f97316; outline-offset: 2px; border-radius: 4px; }
+
+.btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-brand-700 active:scale-95; }
+.btn-secondary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-6 py-3 text-base font-semibold text-white ring-1 ring-white/40 backdrop-blur transition hover:bg-white/20 active:scale-95; }
+.btn-outline { @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand-600 px-6 py-3 text-base font-semibold text-brand-700 transition hover:bg-brand-50 active:scale-95; }
+
+.card { @apply rounded-2xl bg-white p-6 shadow-md ring-1 ring-sand-200; }
+.chip { @apply inline-flex cursor-pointer items-center rounded-full px-3 py-1 text-sm font-medium ring-1 ring-sand-300 transition hover:ring-brand-400; }
+.chip[data-on="true"] { @apply bg-brand-600 text-white ring-brand-600; }
+.tag { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+
+/* Modal animation */
+@keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(.98);} to { opacity: 1; transform: none; } }
+.modal-panel { animation: modalIn .25s ease-out; }
+
+input, select, textarea { @apply w-full rounded-xl border border-sand-300 bg-white px-4 py-2.5 text-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200; }
+label { @apply mb-1 block text-sm font-semibold text-stone-700; }
+
+.skip-link { @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white; }

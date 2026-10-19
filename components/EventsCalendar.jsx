@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Modal from "./Modal";
-import { EVENTS } from "../lib/data";
+import { EVENTS, PHONE, PHONE_LINK } from "../lib/data";
 
 const CATS = { Worship: "bg-brand-100 text-brand-700", Youth: "bg-sky-100 text-sky-700", Outreach: "bg-emerald-100 text-emerald-700" };
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -93,17 +93,16 @@ export default function EventsCalendar() {
 
       <Modal open={!!reg} onClose={() => setReg(null)} label="Event registration">
         {reg && (
-          <form onSubmit={ev => { ev.preventDefault(); setReg(null); }} className="space-y-4">
+          <div className="space-y-4">
             <span className={`tag ${CATS[reg.cat]}`}>{reg.cat}</span>
             <h3 className="text-xl font-extrabold text-brand-700">{reg.title}</h3>
             <p className="text-sm text-stone-500">📅 {new Date(reg.date + "T00:00:00").toDateString()} · {reg.time} — {reg.desc}</p>
-            <div><label htmlFor="er-name">Name</label><input id="er-name" required placeholder="Full name" autoComplete="name" /></div>
-            <div><label htmlFor="er-email">Email</label><input id="er-email" type="email" required placeholder="you@email.com" autoComplete="email" /></div>
+            <p className="text-sm text-stone-600">Online registration is not connected yet. Call the church to check details and register.</p>
             <div className="flex gap-3">
               <button type="button" onClick={() => { addToCalendar(reg); }} className="btn-outline flex-1">📅 Add to Calendar</button>
-              <button type="submit" className="btn-primary flex-1">Confirm Registration</button>
+              <a href={PHONE_LINK} className="btn-primary flex-1">Call {PHONE}</a>
             </div>
-          </form>
+          </div>
         )}
       </Modal>
     </section>

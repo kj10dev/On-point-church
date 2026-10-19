@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { PHONE_LINK } from "../lib/data";
 
 const INITIAL = [
   { id:"p1", name:"Sarah", text:"Please pray for my mom's surgery on Thursday. Believing for full healing.", praises:false, count:23, prayed:false },
@@ -53,8 +54,8 @@ export default function PrayerWall() {
               Post anonymously
             </label>
             <button className="btn-primary w-full">{isPraise ? "Post Praise" : "Submit Request"}</button>
-            {sent && <p className="rounded-xl bg-emerald-50 px-3 py-2 text-center text-sm font-semibold text-emerald-700" role="status">✅ Posted — our team has been notified and will pray with you.</p>}
-            <p className="text-xs text-stone-400">All public posts are moderated by church leadership before appearing widely.</p>
+            {sent && <p className="rounded-xl bg-amber-50 px-3 py-2 text-center text-sm font-semibold text-amber-800" role="status">Added to this browser session only. The church team has not been notified.</p>}
+            <p className="text-xs text-stone-500">This demo wall only updates in this browser session. Posts are not sent to church leaders or shared with other visitors. For prayer with the church team, <a className="font-semibold text-brand-700 underline" href={PHONE_LINK}>call us</a>.</p>
           </form>
 
           {/* Wall */}

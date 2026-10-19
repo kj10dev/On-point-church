@@ -4,7 +4,8 @@
 
 :root { color-scheme: light; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+section[id] { scroll-margin-top: 5rem; }
 body { @apply bg-sand-50 text-ink antialiased; font-family: 'Inter', system-ui, sans-serif; }
 
 /* Accessible focus rings (WCAG AA) */

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import Modal from "./Modal";
-import { GROUPS } from "../lib/data";
+import { GROUPS, PHONE, PHONE_LINK } from "../lib/data";
 
 const DAYS = ["Any", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const STAGES = ["Any", "Young Adults", "Families", "Seniors"];
@@ -11,7 +11,6 @@ export default function GroupFinder() {
   const [day, setDay] = useState("Any");
   const [stage, setStage] = useState("Any");
   const [join, setJoin] = useState(null);      // group being joined
-  const [done, setDone] = useState(false);
 
   const groups = useMemo(() => GROUPS.filter(g =>
     (day === "Any" || g.day === day) &&
@@ -47,7 +46,7 @@ export default function GroupFinder() {
               </div>
               <p className="mt-2 flex-1 text-sm text-stone-600">{g.desc}</p>
               <p className="mt-3 text-sm text-stone-500">📍 {g.neighborhood} · {g.day} {g.time}{g.kids && " · 👶 Kids welcome"}</p>
-              <button onClick={() => { setJoin(g); setDone(false); }} className="btn-primary mt-4 w-full !py-2.5 !text-sm">Request to Join</button>
+              <button onClick={() => setJoin(g)} className="btn-primary mt-4 w-full !py-2.5 !text-sm">Request to Join</button>
             </article>
           ))}
         </div>
@@ -55,21 +54,12 @@ export default function GroupFinder() {
       </div>
 
       <Modal open={!!join} onClose={() => setJoin(null)} label="Request to join group">
-        {join && !done ? (
-          <form onSubmit={() => setDone(true)} className="space-y-4">
+        {join && (
+          <div className="space-y-4">
             <h3 className="text-xl font-extrabold text-brand-700">Join {join.name}</h3>
             <p className="text-sm text-stone-500">{join.neighborhood} · {join.day} {join.time}</p>
-            <div><label htmlFor="gj-name">Your name</label><input id="gj-name" required placeholder="Full name" autoComplete="name" /></div>
-            <div><label htmlFor="gj-email">Email</label><input id="gj-email" type="email" required placeholder="you@email.com" autoComplete="email" /></div>
-            <div><label htmlFor="gj-msg">Anything we should know? (optional)</label><textarea id="gj-msg" rows="3" placeholder="e.g. Coming with my spouse…" /></div>
-            <button className="btn-primary w-full">Send Request</button>
-          </form>
-        ) : join && (
-          <div className="py-6 text-center" aria-live="polite">
-            <p className="text-4xl" aria-hidden="true">🎉</p>
-            <h3 className="mt-2 text-xl font-extrabold text-brand-700">Request sent!</h3>
-            <p className="mt-1 text-sm text-stone-500">The {join.name} leader will reach out within 48 hours.</p>
-            <button onClick={() => setJoin(null)} className="btn-outline mt-6 w-full">Done</button>
+            <p className="text-sm text-stone-600">Online group requests are not connected yet. Call the church to ask about joining this group.</p>
+            <a href={PHONE_LINK} className="btn-primary w-full">Call {PHONE}</a>
           </div>
         )}
       </Modal>

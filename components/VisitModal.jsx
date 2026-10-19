@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
 import Modal from "./Modal";
-import { SERVICES, ADDRESS } from "../lib/data";
+import { DIRECTIONS_URL, SERVICES } from "../lib/data";
 
 export default function VisitModal({ open, onClose }) {
   const [step, setStep] = useState(0);
-  const [form, setForm] = useState({ name: "", email: "", kids: "", parking: "General" });
+  const [form, setForm] = useState({ name: "", kids: "", parking: "General" });
   const [submitted, setSubmitted] = useState(false);
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
-  const reset = () => { setStep(0); setSubmitted(false); setForm({ name: "", email: "", kids: "", parking: "General" }); };
+  const reset = () => { setStep(0); setSubmitted(false); setForm({ name: "", kids: "", parking: "General" }); };
   const close = () => { reset(); onClose(); };
 
   const submit = (e) => { e.preventDefault(); setSubmitted(true); };
@@ -30,11 +30,7 @@ export default function VisitModal({ open, onClose }) {
           {step === 1 && (
             <>
               <div>
-                <label htmlFor="v-email">Email (for your welcome guide)</label>
-                <input id="v-email" type="email" required value={form.email} onChange={set("email")} placeholder="you@email.com" autoComplete="email" />
-              </div>
-              <div>
-                <label htmlFor="v-kids">Coming with kids?</label>
+                <label htmlFor="v-kids">Who is coming with you?</label>
                 <select id="v-kids" value={form.kids} onChange={set("kids")}>
                   <option value="">Select…</option><option>No kids</option><option>0–2 years</option>
                   <option>3–5 years</option><option>6–12 years</option><option>Teens</option>
@@ -75,11 +71,8 @@ export default function VisitModal({ open, onClose }) {
               <li>Come as you are — jeans are welcome.</li>
             </ul>
           </div>
-          <div className="overflow-hidden rounded-2xl ring-1 ring-sand-200">
-            <iframe title="Map to On-Point Church" className="h-56 w-full" loading="lazy"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=28.10%2C-26.02%2C28.16%2C-25.98&layer=mapnik&marker=-26.00%2C28.13" />
-          </div>
-          <p className="text-xs text-stone-400">{ADDRESS} · A copy was sent to {form.email}.</p>
+          <a className="btn-outline w-full" href={DIRECTIONS_URL} target="_blank" rel="noreferrer">Get directions in Google Maps</a>
+          <p className="text-xs text-stone-500">Your welcome guide is shown here only; this site does not email or save your visit details.</p>
           <button onClick={close} className="btn-outline w-full">Done — see you Sunday!</button>
         </div>
       )}
